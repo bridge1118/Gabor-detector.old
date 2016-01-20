@@ -9,7 +9,9 @@ mex Csigmoid.c; % sigmoid transformation after filtering
 epsilon = .01; % allowed correlation between selected Gabors 
 locationShiftLimit = 4; % shift in normal direction 
 orientShiftLimit = 1; % shift in orientation
-numElementLimit = 5; % limit on number of Gabors in active basis   
+
+%for numElementLimit = 1 : 15
+numElementLimit = 15; % limit on number of Gabors in active basis   
 responseLimit = 0.; % lower limit on average response of selected basis elements, you can set it to zero if you really want numElementLimit elements
 numElementPointer = zeros(1, 2); % actual number selected, we use a pointer just to pass the number
 Correlation = CorrFilter(allFilter, epsilon); % correlation between filters 
@@ -21,7 +23,7 @@ outputFolder = 'catRotateFlip';
 %imageOption = 1; resizeFactor = .6; % resize images to specified ratio, and use the common upper-left portion 
 imageOption = 2; sizex = 100; sizey = 100; % resize images to specified common height and width
 %imageOption = 3; sizey = 120; % resize images to have common width without changing their aspect ratios, and use the common horizontal central line
-imageFolder = '../src/train'; % folder of training images  
+imageFolder = '../../Omega-detector/imgs/posAll'; % folder of training images  
 imageName = dir([imageFolder '/*.jpg']);
 numImage = size(imageName, 1); % number of training images 
 I = cell(1, numImage); 
@@ -68,9 +70,11 @@ disp(['mex-C learning time: ' num2str(toc) ' seconds']);
 
 OutLearningResult; 
 RotateTemplate;
-%save '../deformedTemplate5' deformedTemplate
+%save '/Users/ful6ru04/Desktop/deformedTemplate15' deformedTemplate
+%save(['/Users/ful6ru04/Desktop/deformedTemplate' ...
+%    num2str(numElementLimit) '.mat'], 'deformedTemplate')
 %save '../commonSketch2' selectedx selectedy centerx centery
-
+%end
 return
 
 %% Rotate and flip template, display and save results
